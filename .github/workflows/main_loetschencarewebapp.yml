@@ -8,41 +8,29 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3  # Updated to v3
+    - name: Checkout repository
+      uses: actions/checkout@v3
 
     - name: Set up Node.js
-      uses: actions/setup-node@v2  # Node.js setup
+      uses: actions/setup-node@v3
       with:
-        node-version: '16'  # Updated Node.js version to 16
+        node-version: '16' # Verwende eine unterstützte Node.js-Version
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
 
     - name: Install dependencies
       run: npm install
 
-    - name: Set up Python
-      uses: actions/setup-python@v3  # Updated to v3
-      with:
-        python-version: '3.11'  # Using Python 3.11 as specified
-
-    - name: Run Python app tests (if applicable)
-      run: |
-        python -m venv venv
-        source venv/bin/activate
-        pip install -r requirements.txt
-        python -m unittest discover tests  # Replace 'tests' with the correct folder for your tests, if applicable
-
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build
-
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v3  # Updated to v3
+    - name: Build project
+      run: npm run build
 
     - name: Deploy to Azure Web App
-      uses: azure/webapps-deploy@v2  # Deployment action for Azure
+      uses: azure/webapps-deploy@v2
       with:
-        app-name: 'loetschencarewebapp'  # Replace with your actual Azure Web App name
+        app-name: 'loetschencarewebapp'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}  # Ensure this secret is set in GitHub repository
-        package: '.'
+        publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+

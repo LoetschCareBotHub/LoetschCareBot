@@ -1,0 +1,4 @@
+pyodbc==4.0.30
+pymssql==2.2.0
+gunicorn==20.1.0
+Flask==2.0.1

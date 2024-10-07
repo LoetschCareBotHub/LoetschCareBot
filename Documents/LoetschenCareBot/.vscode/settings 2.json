@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/12611531-26ae-4338-aecf-c949a129f234/resourceGroups/LoetschenCareBot/providers/Microsoft.Web/sites/loetschencarewebapp",
+    "appService.deploySubpath": "."
+}
